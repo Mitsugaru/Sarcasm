@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.mitsugaru.sarcasm.Sarcasm;
+import com.mitsugaru.sarcasm.config.RootConfigNode;
+import com.mitsugaru.sarcasm.services.PermissionNode;
 
 public class ChatListener implements Listener {
 
@@ -25,16 +27,16 @@ public class ChatListener implements Listener {
    public void onPlayerChat(AsyncPlayerChatEvent event) {
       if(event.isCancelled()) {
          return;
-      } else if(!event.getPlayer().hasPermission("Sarcasm.use")) {
+      } else if(!event.getPlayer().hasPermission(PermissionNode.USE.getNode())) {
          return;
       }
       String source = event.getMessage();
       if(!(source.contains("/sarcasm"))) {
          return;
       }
-      String prefix = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("sarcasm.prefix", ""));
-      String suffix = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("sarcasm.suffix", ""));
-      String replace = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("sarcasm.replace", ""));
+      String prefix = ChatColor.translateAlternateColorCodes('&', plugin.getRootConfig().getString(RootConfigNode.PREFIX));
+      String suffix = ChatColor.translateAlternateColorCodes('&', plugin.getRootConfig().getString(RootConfigNode.SUFFIX));
+      String replace = ChatColor.translateAlternateColorCodes('&', plugin.getRootConfig().getString(RootConfigNode.REPLACE));
       Matcher matcher = sarcasm.matcher(source);
       StringBuilder builder = new StringBuilder();
       if(!prefix.isEmpty()) {
