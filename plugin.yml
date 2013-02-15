@@ -1,0 +1,9 @@
+name: ${project.artifactId}
+description: ${project.description}
+main: ${project.mainclass}
+version: ${project.version}
+author: Mitsugaru
+permissions:
+    Sarcasm.use:
+        description: Allows use of sarcasm parsing.
+        default: op
